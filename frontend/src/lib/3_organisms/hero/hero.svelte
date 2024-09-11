@@ -13,9 +13,9 @@
   }
 </script>
 
-<section class="hero">
+<section class="galgje">
   {#if content?.title}
-    <div class="top-hero">
+    <div class="top-galgje">
       <div class="lava-text-container">
         <div class="lava-text">
           <h3>
@@ -37,7 +37,7 @@
       </div>
     </div>
 
-    <div class="bottom-hero">
+    <div class="bottom-galgje">
       <div class="big-photo">
         <Img content={content?.image} size="fullscreen" />
       </div>
@@ -55,5 +55,5 @@
 </section>
 
 <style lang="scss">
-  @import "./hero.scss";
+  @import "./galgje.scss";
 </style>

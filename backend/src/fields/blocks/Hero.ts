@@ -1,8 +1,8 @@
 import { Block } from "payload/types";
 
-export const Hero: Block = {
-    slug: 'hero',
-    interfaceName: 'HeroBlock',
+export const Galgje: Block = {
+    slug: 'galgje',
+    interfaceName: 'GalgjeBlock',
     imageURL: '/media/block-preview/hero.png',
     fields: [
         {
