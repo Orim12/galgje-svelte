@@ -155,13 +155,13 @@ export interface Page {
     | 'resetPasswordTemplate'
     | 'editAccountTemplate';
   defaultTemplate?: {
-    blocks: (HeroBlock | FiftyFiftyBlock | GoToBlock | HeaderPhotoSection | FormBlock | RichTextBlock)[];
+    blocks: (GalgjeBlock | FiftyFiftyBlock | GoToBlock | HeaderPhotoSection | FormBlock | RichTextBlock)[];
   };
   homeTemplate?: {
     description: {
       [k: string]: unknown;
     }[];
-    blocks?: (HeroBlock | FiftyFiftyBlock | GoToBlock | HeaderPhotoSection | FormBlock | RichTextBlock)[] | null;
+    blocks?: (GalgjeBlock | FiftyFiftyBlock | GoToBlock | HeaderPhotoSection | FormBlock | RichTextBlock)[] | null;
   };
   loginTemplate?: {
     title: string;
@@ -183,7 +183,7 @@ export interface Page {
     login?: Button;
   };
   contactTemplate?: {
-    blocks?: (HeroBlock | FiftyFiftyBlock | GoToBlock | HeaderPhotoSection | FormBlock | RichTextBlock)[] | null;
+    blocks?: (GalgjeBlock | FiftyFiftyBlock | GoToBlock | HeaderPhotoSection | FormBlock | RichTextBlock)[] | null;
   };
   collectionOverviewTemplate?: {
     title: string;
@@ -245,22 +245,17 @@ export interface Page {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HeroBlock".
+ * via the `definition` "GalgjeBlock".
  */
-export interface HeroBlock {
-  title: string;
-  image: string | Media;
-  firstBlockText?: string | null;
-  secondBlockText?: string | null;
-  wordsForBanner?:
-    | {
-        word: string;
-        id?: string | null;
-      }[]
-    | null;
+export interface GalgjeBlock {
+  easyMode?: boolean | null;
+  wordList: {
+    word?: string | null;
+    id?: string | null;
+  }[];
   id?: string | null;
   blockName?: string | null;
-  blockType: 'hero';
+  blockType: 'galgje';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

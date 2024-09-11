@@ -1,8 +1,8 @@
 <script lang="ts">
   import Img from "@src/lib/1_atoms/img/img.svelte";
-  import type { HeroBlock } from "@src/payload-types";
+  import type { GalgjeBlock } from "@src/payload-types";
 
-  export let content: HeroBlock;
+  export let content: GalgjeBlock;
 
   function replaceBracketsWithSpan(text) {
     const replacedText = text.replace(

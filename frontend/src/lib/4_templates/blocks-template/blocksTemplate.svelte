@@ -1,7 +1,7 @@
 <script lang="ts">
   import FiftyFifty from "@src/lib/3_organisms/fifty-fifty/fiftyFifty.svelte";
   import GoToBlock from "@src/lib/3_organisms/go-to-block/go-to-block.svelte";
-  import Galgje from "@src/lib/3_organisms/hero/hero.svelte";
+  import Galgje from "@src/lib/3_organisms/galgje/galgje.svelte";
   import HeaderPhoto from "@src/lib/3_organisms/header-photo/headerPhoto.svelte";
   import FormBuilder from "@src/lib/2_molecules/form-builder/formBuilder.svelte";
   import type { Page } from "@src/payload-types";

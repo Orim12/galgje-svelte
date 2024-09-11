@@ -1,7 +1,7 @@
 import { fiftyFiftyBlock } from './FiftyFifty';
 import { Form } from './Form';
 import { GoTo } from './GoTo';
-import { Galgje } from './Hero';
+import { Galgje } from './galgje';
 import { HeaderPhoto } from './HeaderPhoto';
 import { richTextBlock } from './richtextBlock';
 
