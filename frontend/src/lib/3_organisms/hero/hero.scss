@@ -1,0 +1,114 @@
+.hero {
+  position: relative;
+  padding-top: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  padding-bottom: 90px;
+
+  .top-hero {
+    max-width: 1060px;
+    width: 100%;
+    display: flex;
+    padding-inline: 15px;
+    padding-block: 86px;
+
+    .lava-text-container {
+      max-width: 382px;
+      rotate: -13deg;
+      position: absolute;
+      z-index: 1;
+
+      .lava-text {
+        h3 {
+          font-weight: 700;
+          font-size: 38px;
+          color: var(--black);
+          line-height: 44px;
+          letter-spacing: -1.5%;
+        }
+
+        :global(.underline) {
+          position: relative;
+          display: inline-block;
+          transform-style: preserve-3d;
+
+          &::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 102%;
+            height: 18px;
+            background-color: var(--m);
+            transform: translateZ(-10px);
+          }
+        }
+      }
+    }
+    .blocks {
+      display: flex;
+      margin-left: auto;
+      position: relative;
+
+      .back-end,
+      .front-end {
+        display: flex;
+        border-radius: 20px;
+        width: 272px;
+        height: 231px;
+        align-items: flex-end;
+        padding-left: 27px;
+      }
+      .back-end {
+        background-color: var(--m);
+        margin-right: 15px;
+        .back-end-text {
+          font-weight: 900;
+          font-size: 16px;
+          line-height: 21px;
+          color: var(--m-200);
+        }
+      }
+
+      .front-end {
+        background-color: var(--m-300);
+        .front-end-text {
+          font-weight: 900;
+          font-size: 16px;
+          line-height: 21px;
+          color: var(--black);
+        }
+      }
+    }
+  }
+
+  .bottom-hero {
+    padding-inline: 15px;
+
+    .big-photo {
+      max-width: 1060px;
+      overflow: hidden;
+      border-radius: 20px;
+    }
+  }
+  .line-text {
+    position: absolute;
+    width: 100%;
+    background-color: var(--white);
+    padding: 15px;
+    rotate: -2deg;
+    text-align: center;
+    bottom: 5%;
+
+    @include breakpoint(450px) {
+      padding: 0px;
+    }
+
+    p {
+      font-weight: 900;
+      @include responsive-property(font-size, 14px, 16px);
+    }
+  }
+}

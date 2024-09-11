@@ -1,0 +1,67 @@
+.focus__heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .focus__reset {
+    cursor: pointer;
+    line-height: 25px;
+    padding-bottom: 0.4807692308rem;
+    text-decoration: underline;
+  }
+
+  .focus__reset:hover {
+    text-decoration: underline;
+  }
+}
+
+.focus__area {
+  position: relative;
+  user-select: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 300px;
+  background-color: #fff;
+  background-color: var(--theme-elevation-100);
+  user-select: none;
+
+  box-shadow: 0 2px 3px 0 rgba(0, 2, 4, 0.05), 0 10px 4px -8px rgba(0, 2, 4, 0.02);
+  font-family: var(--font-body);
+  border-radius: 0;
+  font-size: 1rem;
+  line-height: 1.9230769231rem;
+
+  .focus__picker {
+    position: relative;
+    width: 100%;
+    background-color: #fff;
+    cursor: crosshair;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+
+    .focus__picker__image {
+      position: relative;
+      object-fit: contain;
+      height: 100%;
+      width: 100%;
+    }
+
+    .focus__picker__indicator {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      border: 0.5px solid #fff;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+
+@media (max-width: 700px), (max-height: 300px) {
+  .focus__picker {
+    display: none;
+  }
+}

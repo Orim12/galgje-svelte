@@ -1,0 +1,27 @@
+{
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+    "files.eol": "\n",
+    "eslint.validate": [
+        "javascript",
+        "svelte",
+        "html"
+    ],
+    "files.associations": {
+        // "*.svelte": "html"
+    },
+    "[svelte][javascript]": {
+        "editor.formatOnSave": true,
+    },
+    "[scss]": {
+        "editor.tabSize": 2,
+        "editor.detectIndentation": false,
+        "editor.defaultFormatter": "sibiraj-s.vscode-scss-formatter"
+    },
+    "css.validate": true,
+    "less.validate": true,
+    "scss.validate": true,
+    "prettier.eslintIntegration": true,
+    "editor.formatOnSave": true,
+}

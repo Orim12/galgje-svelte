@@ -1,0 +1,48 @@
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.error-container {
+  position: fixed;
+  padding-inline: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  bottom: 50px;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 5;
+
+  .error {
+    padding-top: 15px;
+    background-color: var(--error-300);
+    border-radius: 5px;
+    overflow: hidden;
+
+    p {
+      padding-inline: 30px;
+      color: var(--error);
+      margin: 0;
+      font-weight: 700;
+      padding-bottom: 10px;
+    }
+  }
+
+  .loader {
+    width: 0%;
+    height: 5px;
+    background-color: var(--error);
+    animation: identifier 5s linear 1;
+  }
+}
+@keyframes identifier {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0%;
+  }
+}

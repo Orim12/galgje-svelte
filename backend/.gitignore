@@ -1,0 +1,5 @@
+bin/mongo-mem-server/storage/**
+!bin/mongo-mem-server/storage/.gitkeep
+src/media/**
+!src/media/block-previews/
+!src/media/block-previews/**

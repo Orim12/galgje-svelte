@@ -1,0 +1,43 @@
+/*
+Add keybind below in keybindings.json to invoke the task
+[
+    {
+        "key": "alt+j",
+        "command": "workbench.action.tasks.runTask",
+        "args": "svelte-component-gen",
+    }
+]
+*/
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "svelte-component-gen",
+            "command": "mkdir ${input:dir} && cp .svelte-kit/template/Component.svelte ${input:dir}/${input:name}.svelte && cp .svelte-kit/template/Component.stories.svelte ${input:dir}/${input:name}.stories.svelte && cp .svelte-kit/template/Component.scss ${input:dir}/${input:name}.scss ",
+            "type": "shell",
+            "problemMatcher": [],
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true
+            },
+        }
+    ],
+    "inputs": [
+        {
+            "type": "promptString",
+            "id": "dir",
+            "description": "Foldername (use kebab-case)",
+            "default": "component-name"
+        },
+        {
+            "type": "promptString",
+            "id": "name",
+            "description": "Componentname (use CamelCasing)",
+            "default": "ComponentName"
+        }
+    ]
+}

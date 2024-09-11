@@ -1,0 +1,17 @@
+.error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  align-items: center;
+  padding: 60px;
+
+  @include breakpoint(600px) {
+    padding: 20px;
+  }
+
+  h1 {
+    color: var(--m);
+    @include responsive-property(font-size, 25px, 32px);
+  }
+}

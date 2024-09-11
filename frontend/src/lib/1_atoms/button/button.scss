@@ -1,0 +1,121 @@
+a,
+button {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--black);
+  color: var(--white);
+  border-radius: 5px;
+  margin-block: 0px;
+  padding-block: 15px;
+  padding-inline: 30px;
+  transition: 0.3s;
+  width: 100%;
+  cursor: pointer;
+  border: none;
+
+  &.orangeButton {
+    background-color: var(--m);
+
+    &:hover {
+      background-color: var(--black);
+    }
+  }
+
+  &.blueButton {
+    background-color: var(--s);
+
+    &:hover {
+      background-color: var(--black);
+    }
+  }
+
+  &.greenButton {
+    background-color: var(--m-700);
+
+    &:hover {
+      background-color: var(--black);
+    }
+  }
+
+  &:hover {
+    background-color: var(--m);
+
+    .icon {
+      margin-left: 15px;
+      margin-right: 0;
+      opacity: 1;
+    }
+  }
+
+  &.transparant {
+    background-color: transparent;
+    border: 1px solid black;
+
+    span {
+      color: var(--black);
+    }
+
+    :global(path) {
+      fill: var(--black);
+    }
+
+    &.darkmode {
+      border: 1px solid white;
+      span {
+        color: white;
+      }
+      :global(path) {
+        fill: white;
+      }
+
+      &:hover {
+        span {
+          color: black;
+        }
+
+        :global(path) {
+          fill: black;
+        }
+      }
+    }
+
+    &:hover {
+      background-color: var(--m);
+      border: 1px solid var(--m);
+
+      span {
+        color: var(--black);
+      }
+
+      :global(path) {
+        fill: var(--black);
+      }
+    }
+  }
+
+  span {
+    position: relative;
+    z-index: 1;
+    transition: 0.3s;
+    font-family: $font-main;
+    font-size: 15px;
+    font-weight: 400;
+    color: white;
+  }
+
+  .icon {
+    position: relative;
+    opacity: 0;
+    transition: 0.3s;
+    margin-left: 0;
+    margin-right: -16px;
+
+    &.static {
+      margin-left: 15px;
+      margin-right: 0;
+      opacity: 1;
+    }
+  }
+}

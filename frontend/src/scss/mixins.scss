@@ -1,0 +1,43 @@
+@use "sass:math";
+
+// Easy helper for breakpoints
+@mixin breakpoint($point, $type: max, $direction: width) {
+  @media only screen and (#{$type}-#{$direction}: $point) {
+    @content;
+  }
+}
+
+@mixin responsive-property(
+  $property: font-size,
+  // Property to be responsive
+  $min,
+  // Minimum value
+  $max: null,
+  // Maximum value
+  $lock-min: $responsivePropertyLockMin,
+  // Minimum breakpoint
+  $lock-max: $contentWidth // Maximum breakpoint
+) {
+  & {
+    #{$property}: $min;
+  }
+  @if $max {
+    @media (min-width: $lock-min) {
+      & {
+        #{$property}: calc(
+          #{$min} + #{num($max) - num($min)} * (100vw - #{$lock-min}) / #{num($lock-max) - num($lock-min)}
+        );
+      }
+    }
+    @media (min-width: $lock-max) {
+      & {
+        #{$property}: $max;
+      }
+    }
+  }
+}
+
+// Strip units from a number
+@function num($input) {
+  @return math.div($input, $input * 0 + 1);
+}

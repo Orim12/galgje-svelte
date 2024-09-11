@@ -1,0 +1,142 @@
+{
+    "i18n": {
+        "form": {
+            "success": "Uw bericht is verzonden",
+            "successRegister": "Uw account is aangemaakt",
+            "send": "Versturen",
+            "email": "Email*",
+            "phone": "Telefoon*",
+            "mobileNumber": "Mobiel nummer",
+            "password": "Wachtwoord*",
+            "passwordMinimum": "wachtwoord moet voldoen aan het volgende: minimaal 8 karakters, waarvan minimaal 2 hoofdletters, 2 klein letters,2 cijfers en 2 leestekens.",
+            "passwordOptional": "Wachtwoord",
+            "passwordOptionalMinimum": "Wachtwoord (minimaal 8 tekens)",
+            "login": "Inloggen",
+            "register": "Registreren",
+            "forgot": "Wachtwoord vergeten",
+            "confirmPassword": "Bevestig wachtwoord*",
+            "confirmPasswordOptional": "Bevestig wachtwoord",
+            "firstName": "Voornaam*",
+            "lastName": "Achternaam*",
+            "KvkNumber": "Kvk nummer*",
+            "companyName": "Bedrijfsnaam*",
+            "zipCode": "Postcode*",
+            "houseNumber": "Huisnummer*",
+            "street": "Straat*",
+            "city": "Plaats*",
+            "houseNumberAddition": "Huisnummer toevoeging",
+            "firstLetters": "Voorletters",
+            "btwNumber": "BTW nummer"
+        },
+        "errors": {
+            "phone": "Telefoonnummer is niet geldig",
+            "invalid": "Vul alle velden in",
+            "incorrect": "Gegevens zijn onjuist",
+            "unknown": "Er is een onbekende fout opgetreden",
+            "email": "Email is niet geldig",
+            "wrongPasswordAndEmail": "Email of wachtwoord is onjuist of niet ingevult",
+            "passwordAndConfirmPasswordMismatch": "Wachtwoord en bevestig wachtwoord komen niet overeen",
+            "incorrectPasswordFormat": "Wachtwoord moet minimaal 8 tekens lang zijn"
+        },
+        "global": {
+            "readMore": "Lees meer",
+            "or": "of",
+            "errorPage": {
+                "title": "Op zoek naar perfectie",
+                "description": "De zwerver verdwaalde in de virtuele ruimte en zijn reis leidde naar pagina 404."
+            }
+        },
+        "dashboard": {
+            "welcome": "Welkom",
+            "logout": "Uitloggen",
+            "yourData": "Jouw gegevens"
+        },
+        "register": {
+            "alRegistred": "Al geregistreerd? Inloggen",
+            "register": "Registreren",
+            "contactInfo": "Contactgegevens",
+            "address": "Vestigingsadres",
+            "vactureAddress": "Factuuradres"
+        },
+        "aboutUs": {
+            "contact": "Neem gewoon contact met ons op "
+        },
+        "header": {
+            "contact": {
+                "call": "Bel direct",
+                "mail": "Mail direct"
+            }
+        },
+        "footer": {
+            "contact": "Contact",
+            "menu": "menu"
+        },
+        "steps": {
+            "step": "STAP"
+        },
+        "productOverview": {
+            "filterProducts": "Filter producten",
+            "close": "Sluiten",
+            "filter": "Filter",
+            "allProducts": "Alle producten",
+            "deleteAllFilters": "Alle filters wissen",
+            "results": "Resultaten",
+            "show": "Toon",
+            "noResults": "Geen resultaten gevonden",
+            "listView": "Lijst weergave",
+            "gridView": "Tegel weergave"
+        },
+        "product": {
+            "Specifications": "Specificaties",
+            "exclBtw": "Excl. BTW",
+            "inclBtw": "Incl. BTW",
+            "inShoppingCart": "In winkelwagen",
+            "format": "Formaat",
+            "thickness": "Dikte",
+            "topLayer": "Toplaag",
+            "contents": "Inhoud",
+            "m2": "m²",
+            "pricePerUsage": "Prijs per gebruik",
+            "pricePerUsageM2": "Prijs per gebruik/m²",
+            "sides": "Zijkanten",
+            "usageClass": "Gebruiksklasse",
+            "icons": "pictogrammen",
+            "brand": "Merk",
+            "type": "Type",
+            "usage": "Gebruik",
+            "category": "Categorie",
+            "Structure": "Structuur",
+            "per": "per"
+        },
+        "shoppingcart": {
+            "rondYourCart": "Rond uw bestelling af",
+            "delete": "Verwijder",
+            "levering": "Bezorging",
+            "total": "TotaalBedrag",
+            "inclusief": "Inclusief",
+            "exclusief": "Exclusief",
+            "btw": "BTW",
+            "order": "Bestellen",
+            "free": "Gratis",
+            "emptyCart": "Uw winkelwagen is leeg"
+        },
+        "forgotPassword": {
+            "success": "Er is een email verstuurd als het email adres bekend is",
+            "errors": {
+                "unknown": "Oeps, er is iets misgegaan. Probeer het opnieuw"
+            }
+        },
+        "editCustomer": {
+            "success": "Uw gegevens zijn aangepast",
+            "errors": {
+                "unknown": "Oeps, er is iets misgegaan. Probeer het opnieuw"
+            }
+        },
+        "checkout": {
+            "submit": "Bestellen",
+            "shippingAddress": "Verzendadres",
+            "billingAddress": "Factuuradres",
+            "sameAddress": "Bezorgadres is hetzelfde"
+        }
+    }
+}

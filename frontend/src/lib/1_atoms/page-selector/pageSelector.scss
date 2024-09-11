@@ -1,0 +1,42 @@
+.page-selector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  height: 30px;
+  background-color: var(--white);
+
+  @include breakpoint(480px) {
+    height: 20px;
+  }
+
+  span {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    font-size: 15px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    opacity: 0.5;
+    color: var(--black);
+    margin-left: -1px;
+
+    @include breakpoint(480px) {
+      width: 25px;
+      height: 25px;
+    }
+
+    &.select {
+      display: flex;
+      opacity: 1;
+      color: var(--black);
+    }
+
+    &.active {
+      display: flex;
+    }
+  }
+}

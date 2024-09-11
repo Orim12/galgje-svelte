@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "svelte.svelte-vscode",
+    "dbaeumer.vscode-eslint",
+    "stylelint.vscode-stylelint",
+    "sibiraj-s.vscode-scss-formatter"
+  ]
+}
