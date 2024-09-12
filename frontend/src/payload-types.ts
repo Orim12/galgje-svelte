@@ -249,10 +249,12 @@ export interface Page {
  */
 export interface GalgjeBlock {
   easyMode?: boolean | null;
-  wordList: {
-    word?: string | null;
-    id?: string | null;
-  }[];
+  wordList?:
+    | {
+        word?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'galgje';
