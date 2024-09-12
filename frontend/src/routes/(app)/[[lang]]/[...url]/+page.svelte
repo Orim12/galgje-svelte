@@ -3,7 +3,6 @@
   import LanguageAlternatives from "@src/lib/1_atoms/language-alternatives/languageAlternatives.svelte";
 
   export let data;
-  console.log(data);
 </script>
 
 <LanguageAlternatives
