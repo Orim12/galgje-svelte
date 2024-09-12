@@ -15,7 +15,6 @@ export const Galgje: Block = {
             label: 'Woordenlijst',
             type: 'array',
             minRows: 5,
-            required: true,
             fields: [{
                 name: 'word',
                 label: 'woord',
