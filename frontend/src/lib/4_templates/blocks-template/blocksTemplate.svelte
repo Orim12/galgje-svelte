@@ -12,7 +12,7 @@
 {#if template?.blocks && template?.blocks?.length > 0}
   {#each template.blocks as block}
     {#if block.blockType === "galgje"}
-      <Galgje content={block} />
+      <Galgje wordsList={block} />
     {:else if block.blockType === "fiftyFiftyBlock"}
       <FiftyFifty content={block} />
     {:else if block.blockType === "goTo"}
