@@ -1,131 +1,162 @@
 <script lang="ts">
   import Container from "@src/lib/0_utils/container/container.svelte";
   import type { GalgjeBlock } from "@src/payload-types";  // Importeer het type GalgjeBlock
+  import { onMount } from 'svelte';
 
-  // Ontvang de wordlist vanuit props (bijvoorbeeld via payload)
-  export let wordsList: GalgjeBlock;  // Definieer de wordList via props van type GalgjeBlock
-
+  // Zet de initialisatie voor de woordlijst
+  let wordList = [];  
   let inputLetter = '';
-  let wordList = wordsList?.wordList;
   let guessedLetters: string[] = [];  // Array van geraden letters
   let score = 0;  // Score variabele
-  let currentWord = getRandomWord();  // Kies een willekeurig woord bij het laden
-  let displayWord = getDisplayWord();  // Stel het weergegeven woord in bij het laden
-  let mistakes = 0;  // Variable to track the number of wrong guesses
+  let currentWord = '';  // Zet de waarde in een lege string totdat de woordenlijst is opgehaald
+  let displayWord = '';  // Stel het weergegeven woord in zodra de woordenlijst is geladen
+  let mistakes = 0;  // Variable om het aantal fouten bij te houden
   const maxMistakes = 13;  // Maximum aantal fouten
 
-  console.log(wordsList);
-  
+  // Ophalen van de woordenlijst van de API
+  onMount(async () => {
+    try {
+      const response = await fetch('http://localhost:4000/api/pages/66e15c78e1bd5923be8a4772?locale=nl&draft=true&depth=4');
+      const data = await response.json();
+      console.log(data);  // Controleer de structuur van de API respons
+
+      // Controleer of de 'wordList' bestaat binnen 'defaultTemplate.blocks[0]'
+      if (data?.defaultTemplate?.blocks?.[0]?.wordList) {
+        wordList = data.defaultTemplate.blocks[0].wordList.map(item => item.word);
+        currentWord = getRandomWord();
+        displayWord = getDisplayWord();
+      } else {
+        console.error('wordList is niet gevonden in de API-respons');
+      }
+    } catch (error) {
+      console.error('Fout bij het ophalen van de woordenlijst:', error);
+    }
+  });
+
+  async function sendCurrentWordToBackend(word) {
+  try {
+    const response = await fetch('http://localhost:4000/api/save-word', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ currentWord: word }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Fout bij het opslaan van het huidige woord');
+    }
+    console.log('Huidige woord succesvol opgeslagen op de server');
+  } catch (error) {
+    console.error('Fout bij het verzenden van het woord naar de server:', error);
+  }
+}
 
   // Functie voor het invoeren van een gok
   function gok(event) {
     if (event.key === 'Enter') {
-      // Stop verdere invoer als het maximale aantal fouten is bereikt
       if (mistakes >= maxMistakes) {
-        inputLetter = "Je hebt verloren!";  // Optioneel: Toon een bericht dat het spel voorbij is
+        inputLetter = "Je hebt verloren!";
+        score = 0;
+        setTimeout(() => resetGame(), 2000);
         return;
       }
 
-      const value = (event.target as HTMLInputElement).value.toLowerCase();  // Maak de invoer lowercase
-      if (/^[a-z]$/.test(value)) {  // Controleer of de invoer een letter is
+      const value = (event.target as HTMLInputElement).value.toLowerCase();
+      if (/^[a-z]$/.test(value)) {
         inputLetter = value;
-        if (!guessedLetters.includes(value)) {  // Voeg de letter toe als deze nog niet is geraden
-          guessedLetters = [...guessedLetters, value];  // Werk guessedLetters bij en trigger reactiviteit
+        if (!guessedLetters.includes(value)) {
+          guessedLetters = [...guessedLetters, value];
           
-          // Controleer of de gegokte letter in het woord zit
           if (!currentWord.includes(value)) {
-            mistakes += 1;  // Verhoog fouten als de letter niet in het woord zit
-            console.log('fouten:', mistakes);
-          } else if (currentWord.split('').every(letter => guessedLetters.includes(letter) || letter === value)) {
-            score += 1;  // Verhoog de score als het woord volledig geraden is
+            mistakes += 1;
+          } else if (currentWord.split('').every(letter => guessedLetters.includes(letter))) {
+            score += 1;
             alert("Gefeliciteerd! Je hebt het woord geraden.");
-            resetGame();  // Start een nieuw spel na het raden van het woord
+            resetGame();
           }
 
-          displayWord = getDisplayWord();  // Update displayWord direct nadat guessedLetters zijn bijgewerkt
+          displayWord = getDisplayWord();
         }
       } else {
-        inputLetter = 'dat is geen letter';  // Foutmelding bij ongeldige invoer
+        inputLetter = 'dat is geen letter';
       }
-      (event.target as HTMLInputElement).value = ''; // Reset het invoerveld
+      (event.target as HTMLInputElement).value = '';
     }
   }
 
   // Functie om een willekeurig woord uit de woordenlijst te kiezen
   function getRandomWord() {
-    // Controleer of de `wordList` een array met woorden bevat
-    if (wordList?.length > 0) {
-      const randomIndex = Math.floor(Math.random() * wordList?.length);
-      return wordList[randomIndex]?.word.toLowerCase();
+    if (wordList.length > 0) {
+      const randomIndex = Math.floor(Math.random() * wordList.length);
+      let goodword = wordList[randomIndex].toLowerCase();
+      sendCurrentWordToBackend(goodword);
+      return goodword;
     }
-    return '';  // Geef een lege string terug als er geen woorden zijn
+    return '';
   }
 
   // Functie om het weergegeven woord samen te stellen
   function getDisplayWord() {
     return currentWord.split('')
-      .map(letter => guessedLetters.includes(letter) ? letter : '_')  // Vul de geraden letters in, vervang de overige door "_"
-      .join(' ');  // Voeg spaties toe tussen de letters
+      .map(letter => guessedLetters.includes(letter) ? letter : '_')
+      .join(' ');
   }
 
-  // Functie om het spel te resetten (nieuw woord en fouten resetten)
+  // Functie om het spel te resetten
   function resetGame() {
-    guessedLetters = [];  // Reset de geraden letters
-    mistakes = 0;  // Reset het aantal fouten
-    currentWord = getRandomWord();  // Kies een nieuw willekeurig woord
-    displayWord = getDisplayWord();  // Werk het weergegeven woord bij
-    inputLetter = '';  // Reset de ingevoerde letter
+    guessedLetters = [];
+    mistakes = 0;
+    currentWord = getRandomWord();
+    displayWord = getDisplayWord();
+    inputLetter = '';
   }
 </script>
 
-
-
-
 <section class="website">
   <Container>
-    {#if wordList?.length > 0}
-      <div class="galgje">
-        <div class="hangmanwood">
-          <div class="height">
-            <div class="hangmanwoods">
-              <!-- Voeg dynamisch een class toe op basis van de fouten -->
-              <div class="hangmanwood__1 {mistakes >= 6 ? 'visible' : ''}"></div>
-              <div class="hangmanwood__2 {mistakes >= 4 ? 'visible' : ''}"></div>
-              <div class="hangmanwood__3 {mistakes >= 5 ? 'visible' : ''}"></div>
-              <div class="hangmanwood__4 {mistakes >= 3 ? 'visible' : ''}"></div>
-              <div class="hangmanwood__5 {mistakes >= 2 ? 'visible' : ''}"></div>
-              <div class="hangmanwood__6 {mistakes >= 1 ? 'visible' : ''}"></div>
-            </div>
-            <div class="hangmanrope">
-              <div class="hangmanrope__1 {mistakes >= 7 ? 'visible' : ''}">
-            </div>
-            </div>
-            <div class="man">
-              <div class="man__1 {mistakes >= 8 ? 'visible' : ''}"></div>
-              <div class="man__2 {mistakes >= 9 ? 'visible' : ''}"></div>
-              <div class="man__3 {mistakes >= 10 ? 'visible' : ''}"></div>
-              <div class="man__4 {mistakes >= 11 ? 'visible' : ''}"></div>
-              <div class="man__5 {mistakes >= 12 ? 'visible' : ''}"></div>
-              <div class="man__6 {mistakes >= 13 ? 'visible' : ''}"></div>
-  
-            </div>
-            <div class="heuvel">
+    {#if wordList.length > 0}
+    <div class="galgje">
+      <div class="hangmanwood">
+        <div class="height">
+          <div class="hangmanwoods">
+            <!-- Voeg dynamisch een class toe op basis van de fouten -->
+            <div class="hangmanwood__1 {mistakes >= 6 ? 'visible' : ''}"></div>
+            <div class="hangmanwood__2 {mistakes >= 4 ? 'visible' : ''}"></div>
+            <div class="hangmanwood__3 {mistakes >= 5 ? 'visible' : ''}"></div>
+            <div class="hangmanwood__4 {mistakes >= 3 ? 'visible' : ''}"></div>
+            <div class="hangmanwood__5 {mistakes >= 2 ? 'visible' : ''}"></div>
+            <div class="hangmanwood__6 {mistakes >= 1 ? 'visible' : ''}"></div>
+          </div>
+          <div class="hangmanrope">
+            <div class="hangmanrope__1 {mistakes >= 7 ? 'visible' : ''}">
+          </div>
+          </div>
+          <div class="man">
+            <div class="man__1 {mistakes >= 8 ? 'visible' : ''}"></div>
+            <div class="man__2 {mistakes >= 9 ? 'visible' : ''}"></div>
+            <div class="man__3 {mistakes >= 10 ? 'visible' : ''}"></div>
+            <div class="man__4 {mistakes >= 11 ? 'visible' : ''}"></div>
+            <div class="man__5 {mistakes >= 12 ? 'visible' : ''}"></div>
+            <div class="man__6 {mistakes >= 13 ? 'visible' : ''}"></div>
+          </div>
+          <div class="heuvel">
               <img src="./icon/heuvel.svg" alt="heuvel" class="svg">
               <input type="text" on:keypress={gok} maxlength="1">
-              <p>score: {score}</p>
+              <p>Score: {score}</p>
               <p>Ingevoerde letter: {inputLetter}</p>
-              <p>Geraden letters: {guessedLetters?.join(', ')}</p>
+              <p>Geraden letters: {guessedLetters.join(', ')}</p>
               <p>Woord: {displayWord}</p>
+              <p>{currentWord}</p>
             </div>
-          </div>
         </div>
       </div>
+    </div>
     {:else}
-      <p>Er is geen woorden lijst gevonden</p>
+      <p>Er is geen woordenlijst gevonden</p>
     {/if}
   </Container>
 </section>
-
 
 <style lang="scss">
   @import "./galgje.scss";
