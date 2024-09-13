@@ -33,14 +33,14 @@
     }
   });
 
-  async function sendCurrentWordToBackend(word) {
+  async function sendCurrentWordToBackend(words) {
   try {
     const response = await fetch('http://localhost:4000/api/save-word', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ currentWord: word }),
+      body: JSON.stringify({ word: words }),
     });
 
     if (!response.ok) {
@@ -147,7 +147,6 @@
               <p>Ingevoerde letter: {inputLetter}</p>
               <p>Geraden letters: {guessedLetters.join(', ')}</p>
               <p>Woord: {displayWord}</p>
-              <p>{currentWord}</p>
             </div>
         </div>
       </div>

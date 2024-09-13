@@ -15,6 +15,8 @@ export interface Config {
     redirects: Redirect;
     category: Category;
     products: Product;
+    words: Word;
+    scores: Score;
     search: Search;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -500,6 +502,26 @@ export interface RichTextFields {
   content: {
     [k: string]: unknown;
   }[];
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "words".
+ */
+export interface Word {
+  id: string;
+  word: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "scores".
+ */
+export interface Score {
+  id: string;
+  score: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
