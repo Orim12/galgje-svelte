@@ -21,10 +21,14 @@
 
         if (response.ok) {
           let scoresArray = Array.isArray(data.data) ? data.data : [data.data];
+          
+          // Sort scoresArray by score in descending order
+          scoresArray.sort((a, b) => b.score - a.score);
+
           highscores = scoresArray.map(item => item.score);
           names = scoresArray.map(item => item.plrname);
-          console.log('Fetched scores:', highscores);
-          console.log('Fetched names:', names);
+          console.log('Fetched and sorted scores:', highscores);
+          console.log('Fetched and sorted names:', names);
           
           // Modify each score
           highscores = highscores.map(score => score - 1);
@@ -43,14 +47,19 @@
       names.push('No name');
     }
   });
+
+  function redirect() {
+    location.href = '/';
+  }
 </script>
 
 <section class="go-to-block">
+  <button on:click={redirect}>back</button>
   {#if highscores.length === 0}
-    <h3>No scores found</h3>
+    <h3 style="left: 20px;position: relative;">No scores found</h3>
   {:else}
     {#each highscores as score, index}
-      <h3>{names[index]}: {score}</h3>
+      <h3 style="left: 20px;position: relative;">{names[index]}: {score}</h3>
     {/each}
   {/if}
 </section>

@@ -1,7 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import type { FiftyFiftyBlock } from "@src/payload-types";
-  export let content: FiftyFiftyBlock;
+  export let content;
 
   let word: string = '';
 

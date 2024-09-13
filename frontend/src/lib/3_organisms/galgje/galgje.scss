@@ -2,24 +2,22 @@
   width: 100%;
   display: flex;
   justify-content: center;
-    .hangmanwood {
-      background-color: aqua;
-      position: absolute;
-      width: 360px;
-      height: 800px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-content: center;
-      .height{
-        position: relative;
-        top: 120px;
+  .hangmanwood {
+    background-color: aqua;
+    position: absolute;
+    width: 360px;
+    height: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    .height {
+      position: relative;
+      top: 120px;
 
       .hangmanwoods {
         position: absolute;
         left: 65px;
-        
-
 
         .hangmanwood__1 {
           position: absolute;
@@ -28,7 +26,7 @@
           background-color: #8b451380;
           bottom: 240px;
           &.visible {
-            background-color: #8B4513;
+            background-color: #8b4513;
           }
         }
 
@@ -39,7 +37,7 @@
           height: 300px;
           background-color: #8b451380;
           &.visible {
-            background-color: #8B4513;
+            background-color: #8b4513;
           }
         }
 
@@ -52,7 +50,7 @@
           bottom: 190px;
           left: 30px;
           &.visible {
-            background-color: #8B4513;
+            background-color: #8b4513;
           }
         }
 
@@ -63,7 +61,7 @@
           background-color: #8b451380;
           top: 40px;
           &.visible {
-            background-color: #8B4513;
+            background-color: #8b4513;
           }
         }
 
@@ -74,7 +72,7 @@
           background-color: #8b451380;
           top: 60px;
           &.visible {
-            background-color: #8B4513;
+            background-color: #8b4513;
           }
         }
 
@@ -86,7 +84,7 @@
           top: 60px;
           left: 230px;
           &.visible {
-            background-color: #8B4513;
+            background-color: #8b4513;
           }
         }
       }
@@ -107,7 +105,7 @@
         position: absolute;
         top: -140px;
         left: 120px;
-        
+
         .man__1 {
           display: block;
           position: absolute;
@@ -119,7 +117,7 @@
           left: 60px;
           bottom: -5px;
           &.visible {
-            background-color: #FAD0A6;
+            background-color: #fad0a6;
           }
         }
 
@@ -133,7 +131,7 @@
           left: 80px;
           top: 1px;
           &.visible {
-            background-color: #FAD0A6;
+            background-color: #fad0a6;
           }
         }
 
@@ -148,7 +146,7 @@
           transform: rotate(45deg);
           top: 10px;
           &.visible {
-            background-color: #FAD0A6;
+            background-color: #fad0a6;
           }
         }
 
@@ -163,7 +161,7 @@
           transform: rotate(-45deg);
           top: 10px;
           &.visible {
-            background-color: #FAD0A6;
+            background-color: #fad0a6;
           }
         }
 
@@ -178,7 +176,7 @@
           transform: rotate(315deg);
           top: 65px;
           &.visible {
-            background-color: #FAD0A6;
+            background-color: #fad0a6;
           }
         }
 
@@ -193,7 +191,7 @@
           transform: rotate(-315deg);
           top: 65px;
           &.visible {
-            background-color: #FAD0A6;
+            background-color: #fad0a6;
           }
         }
       }
@@ -203,7 +201,7 @@
           position: absolute;
           top: 100px;
         }
-        .name{
+        .name {
           top: 220px;
         }
 
@@ -217,17 +215,39 @@
           height: 40px;
           left: 70px;
           top: 170px;
-          background: #FFFFFF;
-          border: 1px solid #D9D9D9;
+          background: #ffffff;
+          border: 1px solid #d9d9d9;
           border-radius: 9999px;
         }
+        span {
+          &.woord {
+            position: absolute;            
+            width: 100%;
+            display: flex;
+            gap: 5px;
+            bottom: 460px;
+            justify-content: center;
 
+            :global(span) {
+              background-color: white;
+              padding-inline: 5px;
+              border-radius: 3px;
+              border: 1px solid black;
+            }
+            :global(.guessed){
+              background-color: #138b29;
+              color: white;
+            }
+          }
+        }
         p {
           position: relative;
           display: flex;
-          bottom: 420px;
+          bottom: 430px;
+
+          
         }
-        button{
+        button {
           position: relative;
           display: flex;
           bottom: 480px;
