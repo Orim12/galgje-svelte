@@ -1,6 +1,6 @@
 import payload from 'payload';
 import { Endpoint } from 'payload/config';
-
+//! words
 export const saveWordRouter: Endpoint = {
   path: '/save-word',
   method: 'post',
@@ -56,59 +56,90 @@ export const getWordRouter: Endpoint = {
     }
   },
 };
-
+//! scores
 export const saveScoreRouter: Endpoint = {
   path: '/save-score',
   method: 'post',
-  handler: async(req, res) => {
-    const { score } = req.body;
+  handler: async (req, res) => {
+    const { score, plrname } = req.body;
 
-    if (!score) {
-      return res.status(400).json({ message: 'Score is required' });
+    if (!score || !plrname) {
+      return res.status(400).json({ message: 'Score and name are required' });
     }
 
     try {
-      console.log('Received score:', score); // Log de ontvangen waarde
+      console.log('Received score:', score, 'and name:', plrname); // Log de ontvangen waarden
 
-      // Maak een nieuw item aan in de 'scores' collectie
-      const newScore = await payload.create({
+      // Controleer of er al een record bestaat met dezelfde naam
+      const existingRecord = await payload.find({
         collection: 'scores',
-        data: { score },
+        where: {
+          plrname: {
+            equals: plrname,
+          },
+        },
       });
 
-      console.log('Created new score:', newScore); // Log de gemaakte waarde
+      let responseMessage;
+      let responseData;
 
-      return res.status(200).json({ message: 'Score saved successfully', data: newScore });
+      if (existingRecord.docs.length > 0) {
+        const existingScore = existingRecord.docs[0].score;
+
+        if (score <= existingScore) {
+          console.log('New score is lower or equal to existing score. No update performed.');
+          return res.status(200).json({ message: 'New score is lower or equal to existing score. No update performed.', data: existingRecord.docs[0] });
+        }
+
+        // Update de score van het bestaande record
+        const updatedRecord = await payload.update({
+          collection: 'scores',
+          id: existingRecord.docs[0].id,
+          data: { score },
+        });
+
+        console.log('Updated score:', updatedRecord); // Log de bijgewerkte waarde
+        responseMessage = 'Score updated successfully';
+        responseData = updatedRecord;
+      } else {
+        // Maak een nieuw item aan in de 'scores' collectie
+        const newScore = await payload.create({
+          collection: 'scores',
+          data: { score, plrname },
+        });
+
+        console.log('Created new score:', newScore); // Log de gemaakte waarde
+        responseMessage = 'Score and name saved successfully';
+        responseData = newScore;
+      }
+
+      return res.status(200).json({ message: responseMessage, data: responseData });
     } catch (error) {
       console.error('Error saving score:', error); // Log de fout
       return res.status(500).json({ message: 'Error saving score', error: error.message });
     }
-    },
+  },
 };
-
 export const getScoreRouter: Endpoint = {
   path: '/get-score',
   method: 'get',
   handler: async (req, res) => {
     try {
-      // Haal de score op uit de 'scores' collectie
+      // Haal alle scores op uit de 'scores' collectie
       const scores = await payload.find({
         collection: 'scores',
-        limit: 1, // Haal slechts één score op
       });
 
       if (scores.docs.length === 0) {
-        return res.status(404).json({ message: 'No score found' });
+        return res.status(404).json({ message: 'No scores found' });
       }
 
-      const score = scores.docs[0];
+      console.log('Retrieved scores:', scores.docs); // Log de opgehaalde scores
 
-      console.log('Retrieved score:', score); // Log de opgehaalde score
-
-      return res.status(200).json({ message: 'Score retrieved successfully', data: score });
+      return res.status(200).json({ message: 'Scores retrieved successfully', data: scores.docs });
     } catch (error) {
-      console.error('Error retrieving score:', error); // Log de fout
-      return res.status(500).json({ message: 'Error retrieving score', error: error.message });
+      console.error('Error retrieving scores:', error); // Log de fout
+      return res.status(500).json({ message: 'Error retrieving scores', error: error.message });
     }
-  },  
+  },
 };

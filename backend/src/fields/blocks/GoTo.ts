@@ -6,6 +6,9 @@ export const GoTo: Block = {
     interfaceName: 'GoToBlock',
     imageURL: '/media/block-preview/goTo.png',
     fields: [
-        button({relationTo: ['pages']})
+        {
+            name: 'niks',
+            type: 'text',
+        }
     ]
 }

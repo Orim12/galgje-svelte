@@ -1,26 +1,25 @@
 <script lang="ts">
   import Container from "@src/lib/0_utils/container/container.svelte";
-  import type { GalgjeBlock } from "@src/payload-types";  // Importeer het type GalgjeBlock
+  import Input from "@src/lib/1_atoms/input/input.svelte";
   import { onMount } from 'svelte';
 
-  // Zet de initialisatie voor de woordlijst
   let wordList = [];  
   let inputLetter = '';
-  let guessedLetters: string[] = [];  // Array van geraden letters
-  let score = 0;  // Score variabele
-  let currentWord = '';  // Zet de waarde in een lege string totdat de woordenlijst is opgehaald
-  let displayWord = '';  // Stel het weergegeven woord in zodra de woordenlijst is geladen
-  let mistakes = 0;  // Variable om het aantal fouten bij te houden
-  const maxMistakes = 13;  // Maximum aantal fouten
+  let guessedLetters: string[] = [];  
+  let score = 0;  
+  let currentWord = '';  
+  let displayWord = '';  
+  let mistakes = 0;  
+  const maxMistakes = 13;  
+  let higscores = 0;
+  let player = "";
 
-  // Ophalen van de woordenlijst van de API
   onMount(async () => {
     try {
       const response = await fetch('http://localhost:4000/api/pages/66e15c78e1bd5923be8a4772?locale=nl&draft=true&depth=4');
       const data = await response.json();
       console.log(data);  // Controleer de structuur van de API respons
 
-      // Controleer of de 'wordList' bestaat binnen 'defaultTemplate.blocks[0]'
       if (data?.defaultTemplate?.blocks?.[0]?.wordList) {
         wordList = data.defaultTemplate.blocks[0].wordList.map(item => item.word);
         currentWord = getRandomWord();
@@ -52,7 +51,79 @@
   }
 }
 
-  // Functie voor het invoeren van een gok
+async function sendScoreToBackend(scores, plrName) {
+  try {
+    scores = scores + 1;
+
+    if (scores === 1) {
+      console.log('Score is 1, niet verzenden naar de backend');
+      return;
+    }
+
+    if (player === "") {
+      plrName = "No name";
+    } else if (player === "player name") {
+      plrName = "No name";
+    }
+
+    const response = await fetch('http://localhost:4000/api/save-score', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ score: scores, plrname: plrName }),
+    });
+
+    getscore();
+
+    if (!response.ok) {
+      throw new Error('Fout bij het opslaan van het huidige score');
+    }
+
+    console.log('Huidige score succesvol opgeslagen op de server');
+  } catch (error) {
+    console.log(scores);
+    console.error('Fout bij het verzenden van het score naar de server:', error);
+  }
+} 
+async function getscore() {
+    try {
+      const response = await fetch('http://localhost:4000/api/get-score');
+      const contentType = response.headers.get('content-type');
+      
+      console.log('Response content-type:', contentType);
+      const text = await response.text();
+      console.log('Response text:', text);
+
+      if (contentType && contentType.includes('application/json')) {
+        const data = JSON.parse(text);
+        console.log('Parsed data:', data);
+
+        if (response.ok) {
+          const scoresArray = data.data;
+          if (Array.isArray(scoresArray) && scoresArray.length > 0) {
+            const scoreData = scoresArray[0];
+            if (scoreData && scoreData.score !== undefined) {
+              higscores = scoreData.score;
+              console.log('Fetched score:', score);
+              higscores = higscores - 1;
+              console.log('Modified score:', score);
+            } else {
+              console.error('Score data is undefined or does not contain score');
+            }
+          } else {
+            console.error('Scores array is empty or not an array');
+          }
+        } else {
+          console.error('Error fetching score:', data.message);
+        }
+      } else {
+        console.error('Response is not JSON');
+      }
+    } catch (error) {
+      console.error('Error fetching score:', error);
+    }
+  }
   function gok(event) {
     if (event.key === 'Enter') {
       if (mistakes >= maxMistakes) {
@@ -85,31 +156,42 @@
     }
   }
 
-  // Functie om een willekeurig woord uit de woordenlijst te kiezen
   function getRandomWord() {
     if (wordList.length > 0) {
       const randomIndex = Math.floor(Math.random() * wordList.length);
       let goodword = wordList[randomIndex].toLowerCase();
       sendCurrentWordToBackend(goodword);
+      getscore();
       return goodword;
     }
     return '';
   }
 
-  // Functie om het weergegeven woord samen te stellen
   function getDisplayWord() {
     return currentWord.split('')
       .map(letter => guessedLetters.includes(letter) ? letter : '_')
       .join(' ');
   }
 
-  // Functie om het spel te resetten
   function resetGame() {
     guessedLetters = [];
     mistakes = 0;
     currentWord = getRandomWord();
     displayWord = getDisplayWord();
     inputLetter = '';
+  }
+  function reset_score() {
+    score = 0;
+    sendScoreToBackend(score, "");
+  }
+  function set_name(event) {
+    if (event.key === 'Enter') {
+      player = (event.target as HTMLInputElement).value;
+      (event.target as HTMLInputElement).value = '';
+    }
+  }
+  function sendScoreToBackendbefore() {
+    sendScoreToBackend(score, player);
   }
 </script>
 
@@ -120,7 +202,6 @@
       <div class="hangmanwood">
         <div class="height">
           <div class="hangmanwoods">
-            <!-- Voeg dynamisch een class toe op basis van de fouten -->
             <div class="hangmanwood__1 {mistakes >= 6 ? 'visible' : ''}"></div>
             <div class="hangmanwood__2 {mistakes >= 4 ? 'visible' : ''}"></div>
             <div class="hangmanwood__3 {mistakes >= 5 ? 'visible' : ''}"></div>
@@ -142,14 +223,21 @@
           </div>
           <div class="heuvel">
               <img src="./icon/heuvel.svg" alt="heuvel" class="svg">
-              <input type="text" on:keypress={gok} maxlength="1">
+              <input type="text" on:keypress={gok} maxlength="1" aria-label={currentWord} value="input letter">
+              <input type="text" on:keypress={set_name} class="name" value="player name">
               <p>Score: {score}</p>
+              <p>Highscore: {higscores}</p>
               <p>Ingevoerde letter: {inputLetter}</p>
               <p>Geraden letters: {guessedLetters.join(', ')}</p>
               <p>Woord: {displayWord}</p>
+              <p>name: {player}</p>
+              <button on:click={reset_score}>reset score</button>
+              <button on:click={sendScoreToBackendbefore} >publish score</button>
             </div>
         </div>
+        
       </div>
+      
     </div>
     {:else}
       <p>Er is geen woordenlijst gevonden</p>

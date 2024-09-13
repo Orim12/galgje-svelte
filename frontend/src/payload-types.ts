@@ -250,7 +250,6 @@ export interface Page {
  * via the `definition` "GalgjeBlock".
  */
 export interface GalgjeBlock {
-  easyMode?: boolean | null;
   wordList?:
     | {
         word?: string | null;
@@ -266,41 +265,17 @@ export interface GalgjeBlock {
  * via the `definition` "FiftyFiftyBlock".
  */
 export interface FiftyFiftyBlock {
-  textAlignment?: ('left' | 'right') | null;
-  title: string;
-  description: string;
-  mediaType?: ('image' | 'video') | null;
-  media?: string | Media | null;
-  videoPlatform?: ('youtube' | 'vimeo') | null;
-  vimeoId?: string | null;
-  youtubeId?: string | null;
-  hasCallToAction?: boolean | null;
-  callToAction?: Button;
+  title?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'fiftyFiftyBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Button".
- */
-export interface Button {
-  label?: string | null;
-  buttonType?: ('button' | 'greenButton' | 'blueButton' | 'orangeButton') | null;
-  linkType?: ('none' | 'internal' | 'external' | 'externalNewTab' | 'scroll') | null;
-  linkInternal?: {
-    relationTo: 'pages';
-    value: string | Page;
-  } | null;
-  linkExternal?: string | null;
-  linkScroll?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "GoToBlock".
  */
 export interface GoToBlock {
-  button?: Button;
+  niks?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'goTo';
@@ -376,6 +351,21 @@ export interface RichTextBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'richTextblock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Button".
+ */
+export interface Button {
+  label?: string | null;
+  buttonType?: ('button' | 'greenButton' | 'blueButton' | 'orangeButton') | null;
+  linkType?: ('none' | 'internal' | 'external' | 'externalNewTab' | 'scroll') | null;
+  linkInternal?: {
+    relationTo: 'pages';
+    value: string | Page;
+  } | null;
+  linkExternal?: string | null;
+  linkScroll?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -519,7 +509,8 @@ export interface Word {
  */
 export interface Score {
   id: string;
-  score: string;
+  score: number;
+  plrname: string;
   updatedAt: string;
   createdAt: string;
 }

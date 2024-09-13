@@ -5,9 +5,14 @@ const scores: CollectionConfig = {
   fields: [
     {
       name: 'score',
-      type: 'text',
+      type: 'number',
       required: true,
     },
+    {
+      name: 'plrname',
+      type: 'text',
+      required: true,
+    }
   ],
 };
 

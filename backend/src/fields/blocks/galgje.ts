@@ -6,11 +6,6 @@ export const Galgje: Block = {
     imageURL: '/media/block-preview/hero.png',
     fields: [
         {
-            name: 'easyMode',
-            label: 'Makkelijke modus',
-            type: 'checkbox',
-        },
-        {
             name: 'wordList',
             label: 'Woordenlijst',
             type: 'array',
