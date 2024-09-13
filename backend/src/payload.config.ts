@@ -25,6 +25,7 @@ import { generateLivePreview } from './lib/generateLivePreview';
 import { slateEditor } from '@payloadcms/richtext-slate';
 import { Category } from './collections/Category';
 import { Products } from './collections/Products';
+//!import { app } from './endpoints/Saveword';
 
 export default buildConfig({
   serverURL: process.env.PAYLOAD_SERVER_URL,
@@ -46,6 +47,7 @@ export default buildConfig({
     fallback: true,
   },
   editor: slateEditor({}),
+
   collections: [
     Users,
     Media,
@@ -53,7 +55,8 @@ export default buildConfig({
     Blogs,
     Redirects,
     Category,
-    Products
+    Products,
+    //app
   ],
   globals: [
     Header,
