@@ -1,0 +1,259 @@
+.galgje {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  .hangmanwood {
+    background-color: aqua;
+    position: absolute;
+    width: 360px;
+    height: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    .height {
+      position: relative;
+      top: 120px;
+
+      .hangmanwoods {
+        position: absolute;
+        left: 65px;
+
+        .hangmanwood__1 {
+          position: absolute;
+          width: 170px;
+          height: 20px;
+          background-color: #8b451380;
+          bottom: 240px;
+          &.visible {
+            background-color: #8b4513;
+          }
+        }
+
+        .hangmanwood__2 {
+          position: absolute;
+          bottom: -40px;
+          width: 20px;
+          height: 300px;
+          background-color: #8b451380;
+          &.visible {
+            background-color: #8b4513;
+          }
+        }
+
+        .hangmanwood__3 {
+          position: absolute;
+          width: 20px;
+          rotate: -130deg;
+          height: 70px;
+          background-color: #8b451380;
+          bottom: 190px;
+          left: 30px;
+          &.visible {
+            background-color: #8b4513;
+          }
+        }
+
+        .hangmanwood__4 {
+          position: absolute;
+          width: 250px;
+          height: 20px;
+          background-color: #8b451380;
+          top: 40px;
+          &.visible {
+            background-color: #8b4513;
+          }
+        }
+
+        .hangmanwood__5 {
+          position: absolute;
+          width: 20px;
+          height: 75px;
+          background-color: #8b451380;
+          top: 60px;
+          &.visible {
+            background-color: #8b4513;
+          }
+        }
+
+        .hangmanwood__6 {
+          position: absolute;
+          width: 20px;
+          height: 75px;
+          background-color: #8b451380;
+          top: 60px;
+          left: 230px;
+          &.visible {
+            background-color: #8b4513;
+          }
+        }
+      }
+
+      .hangmanrope__1 {
+        position: absolute;
+        top: -240px;
+        left: 200px;
+        width: 10px;
+        height: 55px;
+        background-color: rgba(0, 0, 0, 0.479);
+        &.visible {
+          background-color: black;
+        }
+      }
+
+      .man {
+        position: absolute;
+        top: -140px;
+        left: 120px;
+
+        .man__1 {
+          display: block;
+          position: absolute;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          border: 5px;
+          background-color: #fad0a680;
+          left: 60px;
+          bottom: -5px;
+          &.visible {
+            background-color: #fad0a6;
+          }
+        }
+
+        .man__2 {
+          display: block;
+          position: absolute;
+          top: 55px;
+          width: 10px;
+          height: 60px;
+          background-color: #fad0a680;
+          left: 80px;
+          top: 1px;
+          &.visible {
+            background-color: #fad0a6;
+          }
+        }
+
+        .man__3 {
+          display: block;
+          position: absolute;
+          top: 55px;
+          left: 40px;
+          width: 50px;
+          height: 10px;
+          background-color: #fad0a680;
+          transform: rotate(45deg);
+          top: 10px;
+          &.visible {
+            background-color: #fad0a6;
+          }
+        }
+
+        .man__4 {
+          display: block;
+          position: absolute;
+          top: 55px;
+          left: 80px;
+          width: 50px;
+          height: 10px;
+          background-color: #fad0a680;
+          transform: rotate(-45deg);
+          top: 10px;
+          &.visible {
+            background-color: #fad0a6;
+          }
+        }
+
+        .man__5 {
+          display: block;
+          position: absolute;
+          top: 115px;
+          left: 50px;
+          width: 40px;
+          height: 10px;
+          background-color: #fad0a680;
+          transform: rotate(315deg);
+          top: 65px;
+          &.visible {
+            background-color: #fad0a6;
+          }
+        }
+
+        .man__6 {
+          display: block;
+          position: absolute;
+          top: 115px;
+          left: 80px;
+          width: 40px;
+          height: 10px;
+          background-color: #fad0a680;
+          transform: rotate(-315deg);
+          top: 65px;
+          &.visible {
+            background-color: #fad0a6;
+          }
+        }
+      }
+
+      .heuvel {
+        .svg {
+          position: absolute;
+          top: 100px;
+        }
+        .name {
+          top: 220px;
+        }
+
+        input {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          padding: 12px 16px;
+          position: absolute;
+          width: 239px;
+          height: 40px;
+          left: 70px;
+          top: 170px;
+          background: #ffffff;
+          border: 1px solid #d9d9d9;
+          border-radius: 9999px;
+        }
+        span {
+          &.woord {
+            position: absolute;            
+            width: 100%;
+            display: flex;
+            gap: 5px;
+            bottom: 460px;
+            justify-content: center;
+
+            :global(span) {
+              background-color: white;
+              padding-inline: 5px;
+              border-radius: 3px;
+              border: 1px solid black;
+            }
+            :global(.guessed){
+              background-color: #138b29;
+              color: white;
+            }
+          }
+        }
+        p {
+          position: relative;
+          display: flex;
+          bottom: 430px;
+
+          
+        }
+        button {
+          position: relative;
+          display: flex;
+          bottom: 480px;
+          left: 250px;
+        }
+      }
+    }
+  }
+}

@@ -1,39 +1,6 @@
 .go-to-block {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-block: 120px;
-  padding-inline: 25px;
-
-  a {
-    display: flex;
-    max-width: 1060px;
-    width: 100%;
-
-    .container {
-      display: flex;
-      width: 100%;
-      height: 100%;
-      background-color: var(--m-300);
-      border-radius: 20px;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      padding-inline: 25px;
-      transition: 0.3s;
-
-      .text {
-        padding-block: 90px;
-        padding-inline: 20px;
-        h2 {
-          color: var(--black);
-          @include responsive-property(font-size, 20px, 50px);
-        }
-      }
-      .icon {
-        position: absolute;
-        right: 25px;
-      }
-    }
+  :global(h3){
+    position: relative;
+    left: 200px;
   }
 }

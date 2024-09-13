@@ -1,9 +1,12 @@
-// System immports
+// System imports
 import path from 'path';
 
 // Config interfaces
 import { buildConfig } from 'payload/config';
-import { mongooseAdapter } from '@payloadcms/db-mongodb' // database-adapter-import
+import { mongooseAdapter } from '@payloadcms/db-mongodb'; // database-adapter-import
+
+// Custom API import
+import { getScoreRouter, getWordRouter, saveScoreRouter, saveWordRouter } from './endpoints/Saveword'; // <-- Voeg de API route toe
 
 // Config builders
 import generateCloudStoragePlugin from './lib/generateCloudStorage';
@@ -25,6 +28,8 @@ import { generateLivePreview } from './lib/generateLivePreview';
 import { slateEditor } from '@payloadcms/richtext-slate';
 import { Category } from './collections/Category';
 import { Products } from './collections/Products';
+import Words from './collections/api/words';
+import scores from './collections/api/score';
 
 export default buildConfig({
   serverURL: process.env.PAYLOAD_SERVER_URL,
@@ -46,6 +51,7 @@ export default buildConfig({
     fallback: true,
   },
   editor: slateEditor({}),
+  
   collections: [
     Users,
     Media,
@@ -53,21 +59,33 @@ export default buildConfig({
     Blogs,
     Redirects,
     Category,
-    Products
+    Products,
+    Words,
+    scores,
   ],
+
+  endpoints: [
+    saveWordRouter,
+    getWordRouter,
+    saveScoreRouter,
+    getScoreRouter,
+  ],
+  
   globals: [
     Header,
-    Footer
+    Footer,
   ],
+  
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
   },
+  
   plugins: [
     seo({
       collections: [
         'pages',
         'blogs',
-        'products'
+        'products',
       ],
       uploadsCollection: 'media',
       generateTitle: ({ doc }) => {
@@ -80,8 +98,8 @@ export default buildConfig({
       },
       generateURL: ({ doc, locale }) => {
         const document = doc as any;
-        return `${process.env.PAYLOAD_PUBLIC_FRONTEND_URL}${document?.fields?.url?.value}`
-      }
+        return `${process.env.PAYLOAD_PUBLIC_FRONTEND_URL}${document?.fields?.url?.value}`;
+      },
     }),
     generateCloudStoragePlugin([
       Media.slug,
@@ -96,24 +114,30 @@ export default buildConfig({
         products: {
           hasParent: false,
           prefix: ['producten'],
-        }
-      }
+        },
+      },
     }),
     generateSearchPlugin({
-      collections: ['pages', 'blogs',]
+      collections: ['pages', 'blogs'],
     }),
     FormBuilder({ saveToCollection: true }),
   ],
+
+  // Upload settings
   upload: {
     uriDecodeFileNames: true,
     safeFileNames: true,
     preserveExtension: true,
     limits: {
-      fileSize: 1024 * 1024 * 10, // 10MB, written in bytes
+      fileSize: 1024 * 1024 * 10, // 10MB, in bytes
     },
   },
+  
   maxDepth: 5,
+
+  // Database connection
   db: mongooseAdapter({
     url: process.env.MONGODB_URI || false,
   }),
-})
+  
+});

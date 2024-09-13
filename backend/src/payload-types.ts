@@ -15,6 +15,8 @@ export interface Config {
     redirects: Redirect;
     category: Category;
     products: Product;
+    words: Word;
+    scores: Score;
     search: Search;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -155,13 +157,13 @@ export interface Page {
     | 'resetPasswordTemplate'
     | 'editAccountTemplate';
   defaultTemplate?: {
-    blocks: (HeroBlock | FiftyFiftyBlock | GoToBlock | HeaderPhotoSection | FormBlock | RichTextBlock)[];
+    blocks: (GalgjeBlock | FiftyFiftyBlock | GoToBlock | HeaderPhotoSection | FormBlock | RichTextBlock)[];
   };
   homeTemplate?: {
     description: {
       [k: string]: unknown;
     }[];
-    blocks?: (HeroBlock | FiftyFiftyBlock | GoToBlock | HeaderPhotoSection | FormBlock | RichTextBlock)[] | null;
+    blocks?: (GalgjeBlock | FiftyFiftyBlock | GoToBlock | HeaderPhotoSection | FormBlock | RichTextBlock)[] | null;
   };
   loginTemplate?: {
     title: string;
@@ -183,7 +185,7 @@ export interface Page {
     login?: Button;
   };
   contactTemplate?: {
-    blocks?: (HeroBlock | FiftyFiftyBlock | GoToBlock | HeaderPhotoSection | FormBlock | RichTextBlock)[] | null;
+    blocks?: (GalgjeBlock | FiftyFiftyBlock | GoToBlock | HeaderPhotoSection | FormBlock | RichTextBlock)[] | null;
   };
   collectionOverviewTemplate?: {
     title: string;
@@ -245,63 +247,35 @@ export interface Page {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HeroBlock".
+ * via the `definition` "GalgjeBlock".
  */
-export interface HeroBlock {
-  title: string;
-  image: string | Media;
-  firstBlockText?: string | null;
-  secondBlockText?: string | null;
-  wordsForBanner?:
+export interface GalgjeBlock {
+  wordList?:
     | {
-        word: string;
+        word?: string | null;
         id?: string | null;
       }[]
     | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'hero';
+  blockType: 'galgje';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "FiftyFiftyBlock".
  */
 export interface FiftyFiftyBlock {
-  textAlignment?: ('left' | 'right') | null;
-  title: string;
-  description: string;
-  mediaType?: ('image' | 'video') | null;
-  media?: string | Media | null;
-  videoPlatform?: ('youtube' | 'vimeo') | null;
-  vimeoId?: string | null;
-  youtubeId?: string | null;
-  hasCallToAction?: boolean | null;
-  callToAction?: Button;
+  title?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'fiftyFiftyBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Button".
- */
-export interface Button {
-  label?: string | null;
-  buttonType?: ('button' | 'greenButton' | 'blueButton' | 'orangeButton') | null;
-  linkType?: ('none' | 'internal' | 'external' | 'externalNewTab' | 'scroll') | null;
-  linkInternal?: {
-    relationTo: 'pages';
-    value: string | Page;
-  } | null;
-  linkExternal?: string | null;
-  linkScroll?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "GoToBlock".
  */
 export interface GoToBlock {
-  button?: Button;
+  niks?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'goTo';
@@ -377,6 +351,21 @@ export interface RichTextBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'richTextblock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Button".
+ */
+export interface Button {
+  label?: string | null;
+  buttonType?: ('button' | 'greenButton' | 'blueButton' | 'orangeButton') | null;
+  linkType?: ('none' | 'internal' | 'external' | 'externalNewTab' | 'scroll') | null;
+  linkInternal?: {
+    relationTo: 'pages';
+    value: string | Page;
+  } | null;
+  linkExternal?: string | null;
+  linkScroll?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -503,6 +492,27 @@ export interface RichTextFields {
   content: {
     [k: string]: unknown;
   }[];
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "words".
+ */
+export interface Word {
+  id: string;
+  word: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "scores".
+ */
+export interface Score {
+  id: string;
+  score: number;
+  plrname: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
