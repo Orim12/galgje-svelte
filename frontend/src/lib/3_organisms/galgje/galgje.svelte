@@ -20,7 +20,6 @@
         "http://localhost:4000/api/pages/66e15c78e1bd5923be8a4772?locale=nl&draft=true&depth=4"
       );
       const data = await response.json();
-      console.log(data); // Controleer de structuur van de API respons
 
       if (data?.defaultTemplate?.blocks?.[0]?.wordList) {
         wordList = data.defaultTemplate.blocks[0].wordList.map(
@@ -63,7 +62,7 @@
       scores = scores + 1;
 
       if (scores === 1) {
-        console.log("Score is 1, niet verzenden naar de backend");
+        console.log("Score is 0, niet verzenden naar de backend");
         return;
       }
       const response = await fetch("http://localhost:4000/api/save-score", {
@@ -89,32 +88,34 @@
       );
     }
   }
-  async function getscore() {
+    async function getscore() {
     try {
       const response = await fetch("http://localhost:4000/api/get-score");
       const contentType = response.headers.get("content-type");
-
-      console.log("Response content-type:", contentType);
+  
       const text = await response.text();
-      console.log("Response text:", text);
-
+  
       if (contentType && contentType.includes("application/json")) {
         const data = JSON.parse(text);
-        console.log("Parsed data:", data);
-
+  
         if (response.ok) {
           const scoresArray = data.data;
           if (Array.isArray(scoresArray) && scoresArray.length > 0) {
-            const scoreData = scoresArray[0];
-            if (scoreData && scoreData.score !== undefined) {
-              higscores = scoreData.score;
-              console.log("Fetched score:", score);
-              higscores = higscores - 1;
-              console.log("Modified score:", score);
+            higscores = -Infinity;
+            scoresArray.forEach(scoreData => {
+              if (scoreData && scoreData.score !== undefined) {
+                if (scoreData.score > higscores) {
+                  higscores = scoreData.score;
+                  higscores = higscores -1;
+                }
+              } else {
+                console.error("Score data is undefined or does not contain score");
+              }
+            });
+            if (higscores !== -Infinity) {
+              console.log("Highest score:", higscores);
             } else {
-              console.error(
-                "Score data is undefined or does not contain score"
-              );
+              console.error("No valid scores found");
             }
           } else {
             console.error("Scores array is empty or not an array");
