@@ -1,20 +1,13 @@
-/// <reference types="@sveltejs/kit" />
-
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
-declare namespace App {
-    // interface Locals {}
-    // interface Platform {}
-    // interface Session {}
-    // interface Stuff {}
+declare global {
+	namespace App {
+		// interface Error {}
+		// interface Locals {}
+		// interface PageData {}
+		// interface PageState {}
+		// interface Platform {}
+	}
 }
 
-declare module "*&imagetools" {
-    const out;
-    export default out;
-}
-
-declare module '*.txt' {
-    const content: string;
-    export default content;
-}
+export {};

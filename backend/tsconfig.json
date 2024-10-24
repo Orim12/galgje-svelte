@@ -1,36 +1,21 @@
 {
   "compilerOptions": {
-    "esModuleInterop": true,
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "skipLibCheck": true,
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
     "strict": false,
-    "forceConsistentCasingInFileNames": true,
-    "jsx": "react",
-    "module": "CommonJS",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
     "outDir": "./dist",
     "rootDir": "./src",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
+    "jsx": "react",
     "paths": {
-      "node_modules/*": [
-        "./node_modules/*"
-      ]
-    },
+      "payload/generated-types": ["./src/payload-types.ts"],
+       "@/*": ["./src/*"]
+    }
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "**/node_modules",
-    "build",
-    "bin"
-  ],
+  "include": ["src"],
+  "exclude": ["node_modules", "dist", "build"],
   "ts-node": {
     "transpileOnly": true,
     "swc": true
