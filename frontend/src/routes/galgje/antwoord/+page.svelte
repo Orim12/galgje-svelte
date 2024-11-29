@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
 
-  let word: string = '';
+  let word: string = 'loading word...';
 
   onMount(async () => {
     try {

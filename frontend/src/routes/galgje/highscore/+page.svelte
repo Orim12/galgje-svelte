@@ -55,7 +55,7 @@
 <section class="go-to-block">
   <button on:click={redirect}>back</button>
   {#if highscores.length === 0}
-    <h3 style="left: 20px;position: relative;">No scores found</h3>
+    <h3 style="left: 20px;position: relative;">No scores found or is loading</h3>
   {:else}
     {#each highscores as score, index}
       <h3 style="left: 20px;position: relative;">{names[index]}: {score}</h3>

@@ -262,23 +262,23 @@
                 <img src="./icon/heuvel.svg" alt="heuvel" class="svg" />
                 <input
                   type="text"
-                  on:keypress={gok}
-                  maxlength="1"
-                  aria-label={currentWord}
-                  placeholder="input letter"
+                  bind:value={player}
+                  placeholder="player name"
                 />
                 <input
                   type="text"
-                  on:keypress={set_name}
+                  on:keypress={gok}
                   class="name"
-                  placeholder="player name"
+                  maxlength="1"
+                  aria-label={currentWord}
+                  placeholder="input letter"
                 />
                 <p>Score: {score}</p>
                 <p>Highscore: {higscores}</p>
                 <p>Ingevoerde letter: {inputLetter}</p>
                 <p>Geraden letters: {guessedLetters.join(", ")}</p>
-                <span class="woord">{@html displayWord}</span>
                 <p>name: {player}</p>
+                <span class="woord">{@html displayWord}</span>
                 <button on:click={redirect}>highscores</button>
                 <button on:click={reset_score}>reset score</button>
                 <button on:click={sendScoreToBackendbefore}>publish score</button>
