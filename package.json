@@ -3,9 +3,10 @@
     "version": "2.0.0",
     "description": "Lava Core - For all future Volcano projects",
     "scripts": {
-        "dev": "concurrently -n frontend,backend \"yarn frontend\" \"yarn backend\"",
+        "dev": "concurrently -n frontend,backend,memdb \"yarn frontend\" \"yarn backend\" \"yarn memdb\"",
         "frontend": "yarn --cwd frontend dev",
-        "backend": "yarn --cwd backend dev"
+        "backend": "yarn --cwd backend dev",
+        "memdb": "yarn --cwd backend memdb"
     },
     "repository": {
         "type": "git",

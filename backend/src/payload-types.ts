@@ -23,6 +23,12 @@ export interface Config {
  */
 export interface User {
   id: string;
+  roless?:
+    | {
+        role?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
   email: string;
