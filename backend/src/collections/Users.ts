@@ -15,9 +15,13 @@ const Users: CollectionConfig = {
       label: 'Roles',
       fields: [
         {
-          type: 'text',
+          type: 'select',
           name: 'role',
           label: 'Role',
+          options: [
+            { label: 'Admin', value: 'admin' },
+            { label: 'Word Adder', value: 'word-adder' },
+          ],
         },
       ],
     },

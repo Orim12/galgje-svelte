@@ -29,6 +29,7 @@ declare module '$env/static/private' {
 	export const ALLUSERSPROFILE: string;
 	export const ANDROID_SDK_ROOT: string;
 	export const APPDATA: string;
+	export const BUN_INSPECT_CONNECT_TO: string;
 	export const ChocolateyInstall: string;
 	export const ChocolateyLastPathUpdate: string;
 	export const ChocolateyToolsLocation: string;
@@ -184,6 +185,7 @@ declare module '$env/dynamic/private' {
 		ALLUSERSPROFILE: string;
 		ANDROID_SDK_ROOT: string;
 		APPDATA: string;
+		BUN_INSPECT_CONNECT_TO: string;
 		ChocolateyInstall: string;
 		ChocolateyLastPathUpdate: string;
 		ChocolateyToolsLocation: string;
